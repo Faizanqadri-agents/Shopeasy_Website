@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About BloodConnect - Our history, mission, medical team, impact statistics, and donor eligibility guidelines.">
+  <title>About Us | BloodConnect Blood Donation System</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            blood: {
+              50: '#fef2f2',
+              100: '#fee2e2',
+              200: '#fecaca',
+              300: '#fca5a5',
+              400: '#f87171',
+              500: '#ef4444',
+              600: '#dc2626',
+              700: '#b91c1c',
+              800: '#991b1b',
+              900: '#7f1d1d',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Flowbite CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen antialiased selection:bg-red-100 selection:text-red-700">
+
+  <!-- =========================================================================
+       GLOBAL COMPONENT: RESPONSIVE NAVBAR
+       Consistent with active state on About link
+       ========================================================================= -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm transition-all">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- App Logo / Name -->
+        <a href="../../index.html" class="flex items-center space-x-3 group focus:outline-none focus:ring-2 focus:ring-red-500 rounded-lg p-1">
+          <div class="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center border border-red-100 group-hover:scale-105 transition-transform duration-200">
+            <svg class="w-7 h-7 text-red-600" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+            </svg>
+          </div>
+          <div>
+            <span class="text-2xl font-black tracking-tight text-slate-900">Blood<span class="text-red-600">Connect</span></span>
+            <span class="block text-[10px] uppercase tracking-widest font-semibold text-slate-500">Donation Network</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <a href="../../index.html" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-red-600 hover:bg-slate-50 transition-colors">Home</a>
+          <a href="about.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-red-600 bg-red-50 border border-red-100" aria-current="page">About</a>
+          <a href="contact.html" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-red-600 hover:bg-slate-50 transition-colors">Contact</a>
+        </div>
+
+        <!-- Desktop Auth Action Links -->
+        <div class="hidden md:flex items-center space-x-3">
+          <a href="signin.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-red-600 hover:bg-slate-100 transition-colors">
+            Sign In
+          </a>
+          <a href="signup.html" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-600/20 hover:shadow-red-600/30 transition-all">
+            Sign Up
+          </a>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <div class="flex md:hidden">
+          <button id="mobile-menu-button" type="button" class="p-2.5 rounded-xl text-slate-600 hover:text-red-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-red-500" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+            <svg class="icon-hamburger w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg class="icon-close hidden w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 py-4 space-y-2">
+        <a href="../../index.html" class="block px-4 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50">Home</a>
+        <a href="about.html" class="block px-4 py-2.5 rounded-lg text-base font-semibold text-red-600 bg-red-50">About</a>
+        <a href="contact.html" class="block px-4 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50">Contact</a>
+        <div class="pt-4 border-t border-slate-100 flex flex-col space-y-2 px-2">
+          <a href="signin.html" class="w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 border border-slate-300 hover:bg-slate-50">Sign In</a>
+          <a href="signup.html" class="w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-700 shadow-md">Sign Up</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow">
+
+    <!-- Page Header Header Banner -->
+    <section class="bg-white border-b border-slate-200 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <span class="text-xs uppercase tracking-widest font-bold text-red-600">Our Story & Mission</span>
+        <h1 class="text-4xl font-extrabold text-slate-900 mt-2 tracking-tight">Pioneering Life-Saving Connections</h1>
+        <p class="text-slate-600 mt-3 text-base leading-relaxed">
+          BloodConnect was founded to eliminate the agonizing search for emergency blood donors. Here is how our community grew, who leads our mission, and what drives our collective purpose.
+        </p>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 1: TIMELINE (History & Milestones of the Organization)
+         ========================================================================= -->
+    <section class="py-16 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <span class="text-xs uppercase tracking-widest font-bold text-red-600">Component 1 &bull; Journey</span>
+          <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Our Journey & Milestones</h2>
+          <p class="text-slate-600 text-sm mt-1">A timeline of how community goodwill transitioned into a nationwide digital blood system.</p>
+        </div>
+
+        <div class="relative border-l-2 border-red-300 ml-4 md:ml-32 space-y-10">
+          
+          <!-- Milestone 1 -->
+          <div class="relative pl-8 group">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs ring-4 ring-white shadow-md">
+              2020
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group-hover:border-red-300 transition">
+              <span class="text-xs font-bold text-red-600 uppercase tracking-wide">Inception & Emergency Response</span>
+              <h3 class="text-lg font-bold text-slate-900 mt-1">Founded by University Volunteers</h3>
+              <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                Initiated by a group of computer science and medical students responding to critical blood supply shortages during regional health emergencies. Started with a spreadsheet and a direct volunteer telephone helpline.
+              </p>
+            </div>
+          </div>
+
+          <!-- Milestone 2 -->
+          <div class="relative pl-8 group">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs ring-4 ring-white shadow-md">
+              2022
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group-hover:border-red-300 transition">
+              <span class="text-xs font-bold text-red-600 uppercase tracking-wide">Campus & Community Drives</span>
+              <h3 class="text-lg font-bold text-slate-900 mt-1">Mobile Donor Units & University Drives</h3>
+              <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                Expanded across 15 universities and technical campuses, orchestrating quarterly mobile donation drives that registered over 4,000 voluntary donors and collected 2,500 viable whole blood units.
+              </p>
+            </div>
+          </div>
+
+          <!-- Milestone 3 -->
+          <div class="relative pl-8 group">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs ring-4 ring-white shadow-md">
+              2024
+            </div>
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group-hover:border-red-300 transition">
+              <span class="text-xs font-bold text-red-600 uppercase tracking-wide">Technological Leap</span>
+              <h3 class="text-lg font-bold text-slate-900 mt-1">Digital Matching & Hospital API Integration</h3>
+              <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                Launched the BloodConnect web application, connecting real-time hospital emergency rooms directly with nearby compatible donors. Average emergency match response dropped from 3 hours to under 20 minutes.
+              </p>
+            </div>
+          </div>
+
+          <!-- Milestone 4 -->
+          <div class="relative pl-8 group">
+            <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-red-700 text-white flex items-center justify-center font-bold text-xs ring-4 ring-white shadow-md animate-pulse">
+              2026
+            </div>
+            <div class="bg-white p-6 rounded-2xl border-2 border-red-200 shadow-md group-hover:border-red-400 transition">
+              <span class="text-xs font-bold text-red-700 uppercase tracking-wide">Nationwide Scale</span>
+              <h3 class="text-lg font-bold text-slate-900 mt-1">25,000 Lives Saved Milestone</h3>
+              <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                Achieved over 25,000 documented transfusions enabled across 48 cities, collaborating with 120+ accredited medical institutions and regional blood banks.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 2: STATISTICS SECTION (Donors Registered, Requests, Cities)
+         ========================================================================= -->
+    <section class="py-16 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs uppercase tracking-widest font-bold text-red-600">Component 2 &bull; Measured Impact</span>
+          <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Our Platform Impact in Numbers</h2>
+          <p class="text-slate-600 text-sm mt-1">Every figure represents real human life preserved through selflessness.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 text-center hover:border-red-300 transition">
+            <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-red-100 text-red-600 flex items-center justify-center">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            </div>
+            <div class="text-4xl font-black text-slate-900 tracking-tight">14,850+</div>
+            <h3 class="text-sm font-bold text-slate-800 mt-2">Registered Donors</h3>
+            <p class="text-xs text-slate-500 mt-1">Verified and ready across all blood groups</p>
+          </div>
+
+          <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 text-center hover:border-red-300 transition">
+            <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div class="text-4xl font-black text-slate-900 tracking-tight">21,390</div>
+            <h3 class="text-sm font-bold text-slate-800 mt-2">Requests Fulfilled</h3>
+            <p class="text-xs text-slate-500 mt-1">Critical emergency calls addressed successfully</p>
+          </div>
+
+          <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 text-center hover:border-red-300 transition">
+            <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+            <div class="text-4xl font-black text-slate-900 tracking-tight">48</div>
+            <h3 class="text-sm font-bold text-slate-800 mt-2">Cities Served</h3>
+            <p class="text-xs text-slate-500 mt-1">Expanding regional outreach every month</p>
+          </div>
+
+          <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200 text-center hover:border-red-300 transition">
+            <div class="w-12 h-12 mx-auto mb-4 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div class="text-4xl font-black text-slate-900 tracking-tight">&lt; 18 min</div>
+            <h3 class="text-sm font-bold text-slate-800 mt-2">Avg. Donor Match Time</h3>
+            <p class="text-xs text-slate-500 mt-1">From hospital alert to donor confirmation</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 3: TEAM SECTION (Team Member Cards with Photo, Name, Role)
+         ========================================================================= -->
+    <section class="py-20 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs uppercase tracking-widest font-bold text-red-600">Component 3 &bull; Leadership</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1">Meet Our Advisory & Leadership Team</h2>
+          <p class="text-slate-600 mt-2 text-base">Guided by hematologists, public health practitioners, and volunteer coordinators.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          
+          <!-- Team Member 1 -->
+          <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition text-center group">
+            <div class="h-48 bg-gradient-to-tr from-red-600 to-red-400 flex items-center justify-center text-white relative">
+              <!-- Avatar Placeholder -->
+              <div class="w-24 h-24 rounded-full bg-white/20 backdrop-blur border-2 border-white flex items-center justify-center text-3xl font-black shadow-inner">
+                DR
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-bold text-slate-900 group-hover:text-red-600 transition-colors">Dr. Sarah Mansoor</h3>
+              <p class="text-xs font-semibold text-red-600 mt-0.5">Chief Medical Director & Hematologist</p>
+              <p class="text-xs text-slate-600 mt-3 leading-relaxed">
+                15+ years overseeing clinical transfusion safety protocols and blood banking regulations.
+              </p>
+              <div class="mt-4 pt-3 border-t border-slate-100 flex justify-center space-x-3 text-xs text-slate-400">
+                <span class="hover:text-red-600 cursor-pointer">LinkedIn</span>
+                <span>&bull;</span>
+                <span class="hover:text-red-600 cursor-pointer">Research</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Member 2 -->
+          <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition text-center group">
+            <div class="h-48 bg-gradient-to-tr from-slate-800 to-slate-600 flex items-center justify-center text-white relative">
+              <div class="w-24 h-24 rounded-full bg-white/20 backdrop-blur border-2 border-white flex items-center justify-center text-3xl font-black shadow-inner">
+                TK
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-bold text-slate-900 group-hover:text-red-600 transition-colors">Tariq Kamal</h3>
+              <p class="text-xs font-semibold text-red-600 mt-0.5">Head of Technology & Systems</p>
+              <p class="text-xs text-slate-600 mt-3 leading-relaxed">
+                Architect of the BloodConnect real-time donor dispatch engine and hospital integration pipeline.
+              </p>
+              <div class="mt-4 pt-3 border-t border-slate-100 flex justify-center space-x-3 text-xs text-slate-400">
+                <span class="hover:text-red-600 cursor-pointer">GitHub</span>
+                <span>&bull;</span>
+                <span class="hover:text-red-600 cursor-pointer">LinkedIn</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Member 3 -->
+          <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition text-center group">
+            <div class="h-48 bg-gradient-to-tr from-red-700 to-rose-500 flex items-center justify-center text-white relative">
+              <div class="w-24 h-24 rounded-full bg-white/20 backdrop-blur border-2 border-white flex items-center justify-center text-3xl font-black shadow-inner">
+                FA
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-bold text-slate-900 group-hover:text-red-600 transition-colors">Fatima Ahmed</h3>
+              <p class="text-xs font-semibold text-red-600 mt-0.5">Volunteer Outreach Director</p>
+              <p class="text-xs text-slate-600 mt-3 leading-relaxed">
+                Leads nationwide donor drive recruitment, university chapters, and community engagement.
+              </p>
+              <div class="mt-4 pt-3 border-t border-slate-100 flex justify-center space-x-3 text-xs text-slate-400">
+                <span class="hover:text-red-600 cursor-pointer">Community</span>
+                <span>&bull;</span>
+                <span class="hover:text-red-600 cursor-pointer">LinkedIn</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Member 4 -->
+          <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition text-center group">
+            <div class="h-48 bg-gradient-to-tr from-emerald-700 to-teal-500 flex items-center justify-center text-white relative">
+              <div class="w-24 h-24 rounded-full bg-white/20 backdrop-blur border-2 border-white flex items-center justify-center text-3xl font-black shadow-inner">
+                OB
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-bold text-slate-900 group-hover:text-red-600 transition-colors">Dr. Omar Bilal</h3>
+              <p class="text-xs font-semibold text-red-600 mt-0.5">Hospital Liaison Lead</p>
+              <p class="text-xs text-slate-600 mt-3 leading-relaxed">
+                Coordinates rapid triage protocols and verification with trauma centers across metropolitan clinics.
+              </p>
+              <div class="mt-4 pt-3 border-t border-slate-100 flex justify-center space-x-3 text-xs text-slate-400">
+                <span class="hover:text-red-600 cursor-pointer">Clinical</span>
+                <span>&bull;</span>
+                <span class="hover:text-red-600 cursor-pointer">LinkedIn</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 4: TESTIMONIAL SECTION (Donor & Recipient Stories)
+         ========================================================================= -->
+    <section class="py-20 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs uppercase tracking-widest font-bold text-red-600">Component 4 &bull; Community Voices</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-1">Testimonials of Hope & Gratitude</h2>
+          <p class="text-slate-600 mt-2 text-base">Inspirational narratives demonstrating why voluntary blood donation matters.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- Recipient Story -->
+          <div class="p-8 rounded-3xl bg-red-50/50 border border-red-200 flex flex-col justify-between">
+            <div class="space-y-4">
+              <span class="inline-block px-3 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full uppercase">
+                Recipient Story
+              </span>
+              <p class="text-base text-slate-700 italic leading-relaxed">
+                "During my complicated delivery, doctors required 4 units of rare O-negative blood within two hours. BloodConnect mobilised two volunteer donors in the middle of the night. Their selflessness gave my baby girl a mother. I will forever be grateful to those strangers."
+              </p>
+            </div>
+            <div class="flex items-center space-x-4 mt-6 pt-4 border-t border-red-200">
+              <div class="w-12 h-12 rounded-full bg-red-600 text-white font-bold flex items-center justify-center">
+                ZB
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Zainab Bibi & Baby Hira</h4>
+                <p class="text-xs text-slate-600">Emergency Surgery Patient, Lahore</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Donor Story -->
+          <div class="p-8 rounded-3xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+            <div class="space-y-4">
+              <span class="inline-block px-3 py-1 bg-slate-200 text-slate-800 text-xs font-bold rounded-full uppercase">
+                Lifelong Donor Perspective
+              </span>
+              <p class="text-base text-slate-700 italic leading-relaxed">
+                "I started donating at university. Now, 8 years later, BloodConnect makes it effortless to see where blood shortages occur without invasive calls. You spend 30 minutes in a comfortable medical chair, and a family gets to keep their loved one. It is that simple."
+              </p>
+            </div>
+            <div class="flex items-center space-x-4 mt-6 pt-4 border-t border-slate-200">
+              <div class="w-12 h-12 rounded-full bg-slate-800 text-white font-bold flex items-center justify-center">
+                HR
+              </div>
+              <div>
+                <h4 class="font-bold text-slate-900">Hamza Rasheed</h4>
+                <p class="text-xs text-slate-600">Blood Donor (A+), 18 Donations Recorded</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 5: ACCORDION (Mission/FAQ about Eligibility Process)
+         ========================================================================= -->
+    <section class="py-20 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <span class="text-xs uppercase tracking-widest font-bold text-red-600">Component 5 &bull; Informational Guidelines</span>
+          <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Mission, Core Values & Eligibility FAQ</h2>
+          <p class="text-slate-600 text-sm mt-1">General overview of our mission and donor screening principles (non-clinical reference).</p>
+        </div>
+
+        <div class="space-y-4">
+          
+          <!-- Accordion Item 1 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <button type="button" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-slate-800 hover:text-red-600 focus:outline-none" data-accordion-toggle="about-acc-1">
+              <span>What is the primary mission and philosophy of BloodConnect?</span>
+              <svg data-accordion-icon class="w-5 h-5 shrink-0 transition-transform duration-200 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div id="about-acc-1" class="px-6 pb-5 text-sm text-slate-600 border-t border-slate-100 pt-3 leading-relaxed">
+              BloodConnect exists to ensure that no human life is endangered due to a lack of timely, safe blood access. We adhere to pure voluntary non-remunerated blood donation principles, advocating transparent, secure, and equitable access for all community members without cost.
+            </div>
+          </div>
+
+          <!-- Accordion Item 2 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <button type="button" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-slate-800 hover:text-red-600 focus:outline-none" data-accordion-toggle="about-acc-2">
+              <span>What general criteria must a candidate satisfy to donate whole blood?</span>
+              <svg data-accordion-icon class="w-5 h-5 shrink-0 transition-transform duration-200 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div id="about-acc-2" class="hidden px-6 pb-5 text-sm text-slate-600 border-t border-slate-100 pt-3 leading-relaxed">
+              General criteria include being between 18 and 65 years old, weighing at least 50 kg (110 lbs), showing normal vital signs during the pre-donation mini-screening, and having no acute illnesses, colds, or ongoing antibiotic treatments on the donation day.
+            </div>
+          </div>
+
+          <!-- Accordion Item 3 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <button type="button" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-slate-800 hover:text-red-600 focus:outline-none" data-accordion-toggle="about-acc-3">
+              <span>What is the required waiting interval between consecutive donations?</span>
+              <svg data-accordion-icon class="w-5 h-5 shrink-0 transition-transform duration-200 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div id="about-acc-3" class="hidden px-6 pb-5 text-sm text-slate-600 border-t border-slate-100 pt-3 leading-relaxed">
+              For whole blood donation, standard medical guidelines require at least 56 days (8 weeks) between donations for adult males, and typically 84 days (12 weeks) for females to allow complete replenishment of red blood cell iron stores.
+            </div>
+          </div>
+
+          <!-- Accordion Item 4 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <button type="button" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-slate-800 hover:text-red-600 focus:outline-none" data-accordion-toggle="about-acc-4">
+              <span>How does BloodConnect protect donor privacy and contact security?</span>
+              <svg data-accordion-icon class="w-5 h-5 shrink-0 transition-transform duration-200 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div id="about-acc-4" class="hidden px-6 pb-5 text-sm text-slate-600 border-t border-slate-100 pt-3 leading-relaxed">
+              Personal contact details such as direct telephone numbers and physical residential addresses are never broadcast publicly. Emergency hospital requests are mediated via our verified notification routing system to prevent unwanted spam or solicitations.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       GLOBAL COMPONENT: FOOTER
+       Consistent with Home page
+       ========================================================================= -->
+  <footer class="bg-slate-950 text-slate-400 pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-lg bg-red-600/20 flex items-center justify-center border border-red-500/30">
+              <svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+              </svg>
+            </div>
+            <span class="text-xl font-black text-white tracking-tight">Blood<span class="text-red-500">Connect</span></span>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+            A digital healthcare initiative connecting voluntary blood donors with hospitals and patients in critical emergency need.
+          </p>
+          <div class="p-3.5 rounded-xl bg-red-950/40 border border-red-900/50 text-xs text-red-200">
+            <span class="font-bold text-white block mb-0.5">24/7 Blood Emergency Hotline:</span>
+            <span class="text-base font-black text-red-400">0800-BLOOD (25663)</span>
+            <p class="text-[11px] text-slate-400 mt-1">Email: emergency@bloodconnect.org</p>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation Links -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Navigation</h3>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="../../index.html" class="hover:text-red-400 transition-colors">Home</a></li>
+            <li><a href="about.html" class="hover:text-red-400 transition-colors">About Us</a></li>
+            <li><a href="contact.html" class="hover:text-red-400 transition-colors">Contact Support</a></li>
+            <li><a href="signup.html" class="hover:text-red-400 transition-colors">Donor Registration</a></li>
+            <li><a href="signin.html" class="hover:text-red-400 transition-colors">Donor Portal</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Donor Guidelines -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Resources</h3>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="about.html" class="hover:text-red-400 transition-colors">Eligibility Criteria</a></li>
+            <li><a href="about.html" class="hover:text-red-400 transition-colors">Donation Milestones</a></li>
+            <li><a href="about.html" class="hover:text-red-400 transition-colors">Leadership & Medical Board</a></li>
+            <li><a href="contact.html" class="hover:text-red-400 transition-colors">Hospital Affiliation</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Legal & Notice -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Project Notice</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            BloodConnect is created for educational and academic evaluation. Content serves demonstration purposes. For genuine medical emergencies, call your local medical services.
+          </p>
+          <div class="mt-4 flex space-x-3">
+            <span class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer transition">FB</span>
+            <span class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer transition">TW</span>
+            <span class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer transition">IN</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copyright Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+        <p>&copy; 2026 BloodConnect System. All rights reserved. Web Engineering Assignment 01.</p>
+        <p class="mt-2 sm:mt-0">Designed with HTML5, CSS3, Tailwind CSS & Flowbite.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Flowbite JS CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+  <!-- Core JavaScript -->
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

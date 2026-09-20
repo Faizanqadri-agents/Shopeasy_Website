@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BloodConnect - A modern blood donation management system connecting voluntary blood donors with patients and hospitals in need.">
+  <title>BloodConnect | Save Lives Through Voluntary Blood Donation</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            blood: {
+              50: '#fef2f2',
+              100: '#fee2e2',
+              200: '#fecaca',
+              300: '#fca5a5',
+              400: '#f87171',
+              500: '#ef4444',
+              600: '#dc2626',
+              700: '#b91c1c',
+              800: '#991b1b',
+              900: '#7f1d1d',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Flowbite CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen antialiased selection:bg-red-100 selection:text-red-700">
+
+  <!-- =========================================================================
+       GLOBAL COMPONENT: RESPONSIVE NAVBAR
+       Consistent across all pages with working relative links and mobile drawer
+       ========================================================================= -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm transition-all">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- App Logo / Name -->
+        <a href="index.html" class="flex items-center space-x-3 group focus:outline-none focus:ring-2 focus:ring-red-500 rounded-lg p-1">
+          <div class="w-11 h-11 rounded-xl bg-red-50 flex items-center justify-center border border-red-100 group-hover:scale-105 transition-transform duration-200">
+            <svg class="w-7 h-7 text-red-600" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+            </svg>
+          </div>
+          <div>
+            <span class="text-2xl font-black tracking-tight text-slate-900">Blood<span class="text-red-600">Connect</span></span>
+            <span class="block text-[10px] uppercase tracking-widest font-semibold text-slate-500">Donation Network</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-red-600 bg-red-50 border border-red-100" aria-current="page">Home</a>
+          <a href="src/pages/about.html" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-red-600 hover:bg-slate-50 transition-colors">About</a>
+          <a href="src/pages/contact.html" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-red-600 hover:bg-slate-50 transition-colors">Contact</a>
+        </div>
+
+        <!-- Desktop Auth Action Links -->
+        <div class="hidden md:flex items-center space-x-3">
+          <a href="src/pages/signin.html" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-red-600 hover:bg-slate-100 transition-colors">
+            Sign In
+          </a>
+          <a href="src/pages/signup.html" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-700 shadow-md shadow-red-600/20 hover:shadow-red-600/30 transition-all">
+            Sign Up
+          </a>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <div class="flex md:hidden">
+          <button id="mobile-menu-button" type="button" class="p-2.5 rounded-xl text-slate-600 hover:text-red-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-red-500" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation menu">
+            <svg class="icon-hamburger w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg class="icon-close hidden w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 py-4 space-y-2">
+        <a href="index.html" class="block px-4 py-2.5 rounded-lg text-base font-semibold text-red-600 bg-red-50">Home</a>
+        <a href="src/pages/about.html" class="block px-4 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50">About</a>
+        <a href="src/pages/contact.html" class="block px-4 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-50">Contact</a>
+        <div class="pt-4 border-t border-slate-100 flex flex-col space-y-2 px-2">
+          <a href="src/pages/signin.html" class="w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 border border-slate-300 hover:bg-slate-50">Sign In</a>
+          <a href="src/pages/signup.html" class="w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-700 shadow-md">Sign Up</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow">
+
+    <!-- =========================================================================
+         HERO SECTION: Tailwind CSS Hero Component
+         ========================================================================= -->
+    <section class="relative overflow-hidden bg-gradient-to-b from-red-50/60 via-white to-slate-50 pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-slate-200">
+      <div class="absolute inset-0 z-0 opacity-40">
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-red-300 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 -left-20 w-80 h-80 bg-red-200 rounded-full blur-3xl"></div>
+      </div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+            <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-red-100 text-red-700 text-xs font-semibold uppercase tracking-wider">
+              <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
+              <span>24/7 Emergency Blood Assistance</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+              Every Drop Counts.<br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800">Donate Blood,</span> Save Lives.
+            </h1>
+
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              BloodConnect connects voluntary blood donors with patients and verified medical facilities across cities. One donation can save up to three lives in emergency critical care.
+            </p>
+
+            <!-- Hero CTAs -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+              <a href="src/pages/signup.html" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-bold text-white bg-red-600 hover:bg-red-700 shadow-lg shadow-red-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center space-x-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                <span>Become a Donor</span>
+              </a>
+              <a href="src/pages/contact.html" class="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-bold text-slate-800 bg-white border border-slate-300 hover:bg-slate-100 shadow-sm transition-all flex items-center justify-center space-x-2">
+                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span>Request Blood</span>
+              </a>
+            </div>
+
+            <!-- Trust Metrics Mini -->
+            <div class="pt-6 flex items-center justify-center lg:justify-start space-x-6 text-xs font-semibold text-slate-500">
+              <div class="flex items-center space-x-1.5">
+                <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>100% Free Service</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>Certified Hospitals</span>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>Data Confidentiality</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Hero Graphic Card / Visual Component -->
+          <div class="lg:col-span-5 relative flex justify-center">
+            <div class="w-full max-w-md bg-white border border-slate-200 rounded-3xl p-6 shadow-2xl relative space-y-6">
+              
+              <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">
+                    AB+
+                  </div>
+                  <div>
+                    <h2 class="text-sm font-bold text-slate-800">Universal Recipient Match</h2>
+                    <p class="text-xs text-slate-500">Live Inventory Update</p>
+                  </div>
+                </div>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                  Ready
+                </span>
+              </div>
+
+              <div class="space-y-3">
+                <div class="flex justify-between text-xs font-semibold text-slate-600">
+                  <span>Weekly City Target (Units)</span>
+                  <span class="text-red-600">84% Fulfilled</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+                  <div class="bg-gradient-to-r from-red-500 to-red-600 h-3 rounded-full" style="width: 84%"></div>
+                </div>
+              </div>
+
+              <!-- Mini cards inside hero badge -->
+              <div class="grid grid-cols-2 gap-3 pt-2">
+                <div class="p-3 bg-red-50/70 rounded-2xl border border-red-100 text-center">
+                  <div class="text-2xl font-black text-red-600">15 min</div>
+                  <div class="text-[11px] font-medium text-slate-600">Avg. Matching Time</div>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center">
+                  <div class="text-2xl font-black text-slate-800">3 Lives</div>
+                  <div class="text-[11px] font-medium text-slate-600">Saved per Donation</div>
+                </div>
+              </div>
+
+              <div class="p-3.5 bg-slate-900 text-white rounded-2xl flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-3 h-3 rounded-full bg-red-500 animate-ping"></div>
+                  <span class="text-xs font-medium">Emergency Need: <strong class="text-red-400">O Negative</strong></span>
+                </div>
+                <a href="src/pages/contact.html" class="text-xs font-bold text-red-400 hover:text-red-300 underline">Help Now &rarr;</a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 1: BLOOD GROUP LIVE AVAILABILITY STATUS CARDS
+         ========================================================================= -->
+    <section class="py-16 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <h2 class="text-xs uppercase tracking-widest font-bold text-red-600 mb-2">Blood Bank Inventory</h2>
+          <h3 class="text-3xl font-extrabold text-slate-900">Current Blood Group Availability</h3>
+          <p class="text-slate-600 mt-2 text-sm">Updated hourly across all affiliated district medical blood depots.</p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
+          
+          <!-- A+ -->
+          <div class="p-4 rounded-2xl border border-slate-200 hover:border-red-300 bg-white hover:shadow-md transition text-center group">
+            <span class="inline-block text-2xl font-black text-red-600 group-hover:scale-110 transition-transform">A+</span>
+            <p class="text-xs font-bold text-slate-700 mt-1">A Positive</p>
+            <span class="mt-2 inline-block px-2 py-0.5 text-[10px] font-semibold bg-emerald-100 text-emerald-700 rounded-full">Adequate</span>
+          </div>
+
+          <!-- A- -->
+          <div class="p-4 rounded-2xl border border-red-200 bg-red-50/50 hover:shadow-md transition text-center group">
+            <span class="inline-block text-2xl font-black text-red-600 group-hover:scale-110 transition-transform">A-</span>
+            <p class="text-xs font-bold text-slate-700 mt-1">A Negative</p>
+            <span class="mt-2 inline-block px-2 py-0.5 text-[10px] font-semibold bg-amber-100 text-amber-700 rounded-full">Low Stock</span>
+          </div>
+
+          <!-- B+ -->
+          <div class="p-4 rounded-2xl border border-slate-200 hover:border-red-300 bg-white hover:shadow-md transition text-center group">
+            <span class="inline-block text-2xl font-black text-red-600 group-hover:scale-110 transition-transform">B+</span>
+            <p class="text-xs font-bold text-slate-700 mt-1">B Positive</p>
+            <span class="mt-2 inline-block px-2 py-0.5 text-[10px] font-semibold bg-emerald-100 text-emerald-700 rounded-full">Adequate</span>
+          </div>
+
+          <!-- B- -->
+          <div class="p-4 rounded-2xl border border-red-300 bg-red-100/50 hover:shadow-md transition text-center group">
+            <span class="inline-block text-2xl font-black text-red-700 group-hover:scale-110 transition-transform">B-</span>
+            <p class="text-xs font-bold text-slate-700 mt-1">B Negative</p>
+            <span class="mt-2 inline-block px-2 py-0.5 text-[10px] font-semibold bg-red-100 text-red-700 rounded-full">Critical</span>
+          </div>
+
+          <!-- AB+ -->
+          <div class="p-4 rounded-2xl border border-slate-200 hover:border-red-300 bg-white hover:shadow-md transition text-center group">
+            <span class="inline-block text-2xl font-black text-red-600 group-hover:scale-110 transition-transform">AB+</span>
+            <p class="text-xs font-bold text-slate-700 mt-1">AB Positive</p>
+            <span class="mt-2 inline-block px-2 py-0.5 text-[10px] font-semibold bg-emerald-100 text-emerald-700 rounded-full">Adequate</span>
+          </div>
+
+          <!-- AB- -->
+          <div class="p-4 rounded-2xl border border-red-200 bg-red-50/50 hover:shadow-md transition text-center group">
+            <span class="inline-block text-2xl font-black text-red-600 group-hover:scale-110 transition-transform">AB-</span>
+            <p class="text-xs font-bold text-slate-700 mt-1">AB Negative</p>
+            <span class="mt-2 inline-block px-2 py-0.5 text-[10px] font-semibold bg-amber-100 text-amber-700 rounded-full">Low Stock</span>
+          </div>
+
+          <!-- O+ -->
+          <div class="p-4 rounded-2xl border border-slate-200 hover:border-red-300 bg-white hover:shadow-md transition text-center group">
+            <span class="inline-block text-2xl font-black text-red-600 group-hover:scale-110 transition-transform">O+</span>
+            <p class="text-xs font-bold text-slate-700 mt-1">O Positive</p>
+            <span class="mt-2 inline-block px-2 py-0.5 text-[10px] font-semibold bg-emerald-100 text-emerald-700 rounded-full">Adequate</span>
+          </div>
+
+          <!-- O- -->
+          <div class="p-4 rounded-2xl border-2 border-red-500 bg-red-50 hover:shadow-lg transition text-center group animate-pulse">
+            <span class="inline-block text-2xl font-black text-red-700 group-hover:scale-110 transition-transform">O-</span>
+            <p class="text-xs font-bold text-slate-800 mt-1">O Negative</p>
+            <span class="mt-2 inline-block px-2 py-0.5 text-[10px] font-bold bg-red-600 text-white rounded-full">Urgent Need</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 2: DONOR FINDER / SEARCH WIDGET
+         ========================================================================= -->
+    <section class="py-12 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg border border-slate-200">
+          <div class="text-center max-w-2xl mx-auto mb-8">
+            <h3 class="text-2xl font-bold text-slate-900">Find Available Blood Donors in Your City</h3>
+            <p class="text-sm text-slate-600 mt-1">Filter active verified donors ready for emergency or planned transfusions.</p>
+          </div>
+
+          <form id="donor-search-form" class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+            
+            <div class="md:col-span-5">
+              <label for="search-blood-group" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                Required Blood Group
+              </label>
+              <select id="search-blood-group" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-800 focus:bg-white focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                <option value="">Select Blood Group</option>
+                <option value="A+">A Positive (A+)</option>
+                <option value="A-">A Negative (A-)</option>
+                <option value="B+">B Positive (B+)</option>
+                <option value="B-">B Negative (B-)</option>
+                <option value="AB+">AB Positive (AB+)</option>
+                <option value="AB-">AB Negative (AB-)</option>
+                <option value="O+">O Positive (O+)</option>
+                <option value="O-">O Negative (O-)</option>
+              </select>
+            </div>
+
+            <div class="md:col-span-4">
+              <label for="search-city" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                City / Region
+              </label>
+              <input type="text" id="search-city" placeholder="e.g. Lahore, Islamabad, Karachi" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-800 focus:bg-white focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+            </div>
+
+            <div class="md:col-span-3">
+              <button type="submit" class="w-full py-3 px-6 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm shadow-md shadow-red-600/20 transition-all flex items-center justify-center space-x-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <span>Search Donors</span>
+              </button>
+            </div>
+
+          </form>
+
+          <!-- Dynamic Search Result Container -->
+          <div id="donor-search-results" class="hidden mt-6"></div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 3: "HOW IT WORKS" 4-STEP PROCESS CARDS
+         ========================================================================= -->
+    <section class="py-20 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs uppercase tracking-widest font-bold text-red-600">Simple 4 Steps</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">How Blood Donation Works</h2>
+          <p class="text-slate-600 mt-3 text-base">From sign-up to refreshing snacks, the entire procedure takes less than 45 minutes.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          
+          <!-- Step 1 -->
+          <div class="relative bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-red-300 transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-red-600 text-white font-black text-lg flex items-center justify-center mb-5 shadow-md shadow-red-600/20 group-hover:scale-110 transition-transform">
+              01
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Register Online</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Create a free donor profile with your blood group, contact details, and location availability in minutes.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-red-300 transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-red-600 text-white font-black text-lg flex items-center justify-center mb-5 shadow-md shadow-red-600/20 group-hover:scale-110 transition-transform">
+              02
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Mini Health Check</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              A healthcare professional checks your pulse, hemoglobin level, and blood pressure to ensure complete safety.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="relative bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-red-300 transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-red-600 text-white font-black text-lg flex items-center justify-center mb-5 shadow-md shadow-red-600/20 group-hover:scale-110 transition-transform">
+              03
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Safe Donation</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              The blood drawing takes only 8–10 minutes using sterile, single-use, medically certified equipment.
+            </p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="relative bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-red-300 transition-all group">
+            <div class="w-12 h-12 rounded-xl bg-red-600 text-white font-black text-lg flex items-center justify-center mb-5 shadow-md shadow-red-600/20 group-hover:scale-110 transition-transform">
+              04
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Rest & Save Lives</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Enjoy light refreshments, rest for 15 minutes, and know that your single unit is ready to save up to 3 lives.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 4: LIVE STATISTICS COUNTER GRID
+         ========================================================================= -->
+    <section class="py-16 bg-slate-900 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+          
+          <div class="p-4">
+            <div class="text-4xl sm:text-5xl font-black text-red-500 tracking-tight">25,400+</div>
+            <div class="text-sm font-semibold text-slate-300 mt-2">Lives Saved</div>
+            <p class="text-xs text-slate-400 mt-1">Across emergency wards</p>
+          </div>
+
+          <div class="p-4">
+            <div class="text-4xl sm:text-5xl font-black text-white tracking-tight">14,850+</div>
+            <div class="text-sm font-semibold text-slate-300 mt-2">Active Donors</div>
+            <p class="text-xs text-slate-400 mt-1">Registered & verified</p>
+          </div>
+
+          <div class="p-4">
+            <div class="text-4xl sm:text-5xl font-black text-red-500 tracking-tight">120+</div>
+            <div class="text-sm font-semibold text-slate-300 mt-2">Partner Hospitals</div>
+            <p class="text-xs text-slate-400 mt-1">Direct blood bank links</p>
+          </div>
+
+          <div class="p-4">
+            <div class="text-4xl sm:text-5xl font-black text-white tracking-tight">48</div>
+            <div class="text-sm font-semibold text-slate-300 mt-2">Cities Covered</div>
+            <p class="text-xs text-slate-400 mt-1">Nationwide network</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 5: URGENT BLOOD REQUESTS CARDS
+         ========================================================================= -->
+    <section class="py-20 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div>
+            <span class="text-xs uppercase tracking-widest font-bold text-red-600">Urgent Appeals</span>
+            <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Current Emergency Blood Requests</h2>
+            <p class="text-slate-600 text-sm mt-1">Real-time alerts submitted by verified hospital emergency departments.</p>
+          </div>
+          <a href="src/pages/contact.html" class="mt-4 md:mt-0 inline-flex items-center text-sm font-bold text-red-600 hover:text-red-700">
+            Submit an Emergency Request &rarr;
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Request 1 -->
+          <div class="bg-white border-2 border-red-100 hover:border-red-400 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 bg-red-100 text-red-700 font-black text-lg rounded-xl">O-</span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-600 text-white animate-pulse">
+                Immediate (2h)
+              </span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">Jinnah Central Hospital, ICU Ward</h3>
+            <p class="text-xs text-slate-500 mt-1">Patient ID: #EMG-8921 &bull; Needed: 3 Units</p>
+            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-slate-600">City: <strong>Lahore</strong></span>
+              <a href="src/pages/contact.html" class="px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold transition">
+                Respond
+              </a>
+            </div>
+          </div>
+
+          <!-- Request 2 -->
+          <div class="bg-white border border-slate-200 hover:border-red-400 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 bg-slate-100 text-slate-800 font-black text-lg rounded-xl">B+</span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                Today (6h)
+              </span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">Shaheed Benazir Trauma Care</h3>
+            <p class="text-xs text-slate-500 mt-1">Patient ID: #EMG-9034 &bull; Needed: 2 Units</p>
+            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-slate-600">City: <strong>Karachi</strong></span>
+              <a href="src/pages/contact.html" class="px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold transition">
+                Respond
+              </a>
+            </div>
+          </div>
+
+          <!-- Request 3 -->
+          <div class="bg-white border border-slate-200 hover:border-red-400 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 bg-slate-100 text-slate-800 font-black text-lg rounded-xl">A-</span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800">
+                Within 12h
+              </span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">National Medical Complex</h3>
+            <p class="text-xs text-slate-500 mt-1">Patient ID: #EMG-9118 &bull; Needed: 1 Unit</p>
+            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span class="text-xs text-slate-600">City: <strong>Islamabad</strong></span>
+              <a href="src/pages/contact.html" class="px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold transition">
+                Respond
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 6: WHY DONATE BLOOD FEATURE GRID
+         ========================================================================= -->
+    <section class="py-20 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs uppercase tracking-widest font-bold text-red-600">Donor Wellness</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Why Become a Blood Donor?</h2>
+          <p class="text-slate-600 mt-2 text-base">Donating blood is not only heroic for the recipient; it also offers tangible health benefits for you.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Cardiovascular Health</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Regular blood donation helps maintain healthy iron levels in the bloodstream, reducing arterial stiffness and supporting cardiovascular wellness.
+            </p>
+          </div>
+
+          <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Free Mini Health Screening</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Before each session, receive a confidential screening of your pulse, blood pressure, hemoglobin, and temperature with qualified clinical staff.
+            </p>
+          </div>
+
+          <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition">
+            <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">Direct Community Impact</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Your donation directly supports thalassemia patients, accident trauma survivors, cancer chemotherapy recipients, and surgical procedures.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 7: DONOR ELIGIBILITY CHECKLIST CARD
+         ========================================================================= -->
+    <section class="py-16 bg-white border-b border-slate-200">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="bg-gradient-to-br from-red-600 to-red-800 rounded-3xl p-8 sm:p-12 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
+          
+          <div class="space-y-4 max-w-xl">
+            <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur rounded-full text-xs font-semibold uppercase tracking-wider">
+              Quick Eligibility Check
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Can You Donate Blood Today?</h2>
+            <p class="text-red-100 text-sm leading-relaxed">
+              Most healthy adults can donate! Review our standard donor readiness guidelines before scheduling your appointment:
+            </p>
+            <ul class="space-y-2 text-sm text-red-50">
+              <li class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-emerald-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>Age between <strong>18 and 65 years</strong></span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-emerald-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>Weight of at least <strong>50 kg (110 lbs)</strong></span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-emerald-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>At least <strong>56 days (8 weeks)</strong> since your last whole blood donation</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-emerald-300 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                <span>Feeling healthy, well-rested, and well-hydrated today</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="shrink-0">
+            <a href="src/pages/signup.html" class="px-8 py-4 bg-white text-red-700 hover:bg-red-50 rounded-2xl font-black text-sm shadow-xl transition-transform hover:scale-105 inline-block text-center">
+              Register as Eligible Donor &rarr;
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 8: TESTIMONIALS COMPONENT
+         ========================================================================= -->
+    <section class="py-20 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <span class="text-xs uppercase tracking-widest font-bold text-red-600">Real Stories</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2">Words from Our Lifesavers</h2>
+          <p class="text-slate-600 mt-2 text-base">Read how simple voluntary donations altered trajectories and restored hope.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Testimonial 1 -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex text-amber-400 mb-4">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+              <p class="text-sm text-slate-600 italic leading-relaxed">
+                "When my brother had an emergency surgery, we couldn't find B- blood anywhere. A registered donor on BloodConnect answered within 20 minutes. That generosity saved his life."
+              </p>
+            </div>
+            <div class="flex items-center space-x-3 mt-6 pt-4 border-t border-slate-100">
+              <div class="w-10 h-10 rounded-full bg-red-100 text-red-700 font-bold flex items-center justify-center text-sm">
+                AK
+              </div>
+              <div>
+                <p class="text-sm font-bold text-slate-800">Ayesha Khan</p>
+                <p class="text-xs text-slate-500">Recipient Family, Lahore</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex text-amber-400 mb-4">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+              <p class="text-sm text-slate-600 italic leading-relaxed">
+                "I have completed 12 blood donations through BloodConnect. The notification system is seamless and respects donor privacy. Giving blood has become my most meaningful quarterly routine."
+              </p>
+            </div>
+            <div class="flex items-center space-x-3 mt-6 pt-4 border-t border-slate-100">
+              <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-700 font-bold flex items-center justify-center text-sm">
+                MA
+              </div>
+              <div>
+                <p class="text-sm font-bold text-slate-800">Muhammad Ali</p>
+                <p class="text-xs text-slate-500">Regular Donor (O+), Islamabad</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex text-amber-400 mb-4">
+                &#9733;&#9733;&#9733;&#9733;&#9733;
+              </div>
+              <p class="text-sm text-slate-600 italic leading-relaxed">
+                "As an ER charge nurse, having rapid coordination with verified blood donors turns crises into stabilized outcomes. BloodConnect bridges an urgent gap in healthcare."
+              </p>
+            </div>
+            <div class="flex items-center space-x-3 mt-6 pt-4 border-t border-slate-100">
+              <div class="w-10 h-10 rounded-full bg-red-100 text-red-700 font-bold flex items-center justify-center text-sm">
+                SR
+              </div>
+              <div>
+                <p class="text-sm font-bold text-slate-800">Sister Rebecca</p>
+                <p class="text-xs text-slate-500">Trauma Unit Coordinator, Karachi</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 9: PARTNER HOSPITALS & BLOOD BANKS LOGO CLOUD
+         ========================================================================= -->
+    <section class="py-14 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="text-center text-xs font-bold uppercase tracking-widest text-slate-500 mb-8">
+          Trusted & Endorsed by Leading Healthcare Institutions
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 items-center justify-center opacity-70">
+          
+          <div class="flex items-center justify-center space-x-2 p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19 10.5h-5.5V5h-3v5.5H5v3h5.5V19h3v-5.5H19z"/></svg>
+            <span class="font-bold text-slate-700 text-sm">Metro Health</span>
+          </div>
+
+          <div class="flex items-center justify-center space-x-2 p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l-8-4v6l8 4 8-4v-6l-8 4z"/></svg>
+            <span class="font-bold text-slate-700 text-sm">Red Crescent</span>
+          </div>
+
+          <div class="flex items-center justify-center space-x-2 p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span class="font-bold text-slate-700 text-sm">LifeCare Blood</span>
+          </div>
+
+          <div class="flex items-center justify-center space-x-2 p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+            <span class="font-bold text-slate-700 text-sm">Apex Medical</span>
+          </div>
+
+          <div class="flex items-center justify-center space-x-2 p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <span class="font-bold text-slate-700 text-sm">St. Jude Center</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 10: MYTHS VS FACTS FAQ ACCORDION COMPONENT
+         ========================================================================= -->
+    <section class="py-20 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <span class="text-xs uppercase tracking-widest font-bold text-red-600">Common Questions</span>
+          <h2 class="text-3xl font-extrabold text-slate-900 mt-1">Donation Myths vs. Clinical Facts</h2>
+          <p class="text-slate-600 text-sm mt-1">Get clear answers to common questions regarding donating blood.</p>
+        </div>
+
+        <div class="space-y-4">
+          
+          <!-- Accordion Item 1 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <button type="button" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-slate-800 hover:text-red-600 focus:outline-none" data-accordion-toggle="faq-1">
+              <span>Myth: "Donating blood makes you physically weak for days."</span>
+              <svg data-accordion-icon class="w-5 h-5 shrink-0 transition-transform duration-200 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div id="faq-1" class="px-6 pb-5 text-sm text-slate-600 border-t border-slate-100 pt-3">
+              <strong>Fact:</strong> Your body contains about 5 liters of blood and replaces the fluid volume (plasma) within 24 to 48 hours. Red blood cells replenish fully in 4 to 6 weeks. Healthy donors resume normal activities shortly after hydrating.
+            </div>
+          </div>
+
+          <!-- Accordion Item 2 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <button type="button" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-slate-800 hover:text-red-600 focus:outline-none" data-accordion-toggle="faq-2">
+              <span>Myth: "You can contract an infection during blood donation."</span>
+              <svg data-accordion-icon class="w-5 h-5 shrink-0 transition-transform duration-200 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div id="faq-2" class="hidden px-6 pb-5 text-sm text-slate-600 border-t border-slate-100 pt-3">
+              <strong>Fact:</strong> Absolutely not. In certified blood banks and drives, all needles, tubing, and collection bags are 100% sterile, single-use, and disposed of immediately in biohazard containers after each session.
+            </div>
+          </div>
+
+          <!-- Accordion Item 3 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <button type="button" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-slate-800 hover:text-red-600 focus:outline-none" data-accordion-toggle="faq-3">
+              <span>Myth: "Donating blood is painful and takes hours."</span>
+              <svg data-accordion-icon class="w-5 h-5 shrink-0 transition-transform duration-200 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div id="faq-3" class="hidden px-6 pb-5 text-sm text-slate-600 border-t border-slate-100 pt-3">
+              <strong>Fact:</strong> The initial needle insertion feels like a quick pinch lasting just a few seconds. The blood draw itself takes merely 8 to 10 minutes, making the entire visit under 45 minutes from arrival to refreshment.
+            </div>
+          </div>
+
+          <!-- Accordion Item 4 -->
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <button type="button" class="w-full px-6 py-4 text-left flex items-center justify-between font-bold text-slate-800 hover:text-red-600 focus:outline-none" data-accordion-toggle="faq-4">
+              <span>Myth: "Only common blood types are in demand."</span>
+              <svg data-accordion-icon class="w-5 h-5 shrink-0 transition-transform duration-200 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div id="faq-4" class="hidden px-6 pb-5 text-sm text-slate-600 border-t border-slate-100 pt-3">
+              <strong>Fact:</strong> Every blood type is critically needed. While O-negative is universal for emergency red blood cell transfusions, rare types like AB- or B- frequently face severe hospital stock deficits.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 11: EMERGENCY ALERTS & NEWSLETTER SIGNUP BLOCK
+         ========================================================================= -->
+    <section class="py-16 bg-white border-b border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-slate-900 rounded-3xl p-8 sm:p-12 text-white text-center space-y-6">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-red-600/20 text-red-400 text-xs font-bold uppercase">
+            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+            <span>Stay Informed</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Receive Emergency Blood Drive Alerts</h2>
+          <p class="text-slate-300 text-sm max-w-xl mx-auto">
+            Subscribe to receive urgent notifications when your blood group is needed in critical emergency cases nearby.
+          </p>
+
+          <form onsubmit="event.preventDefault(); alert('Subscribed to emergency alerts! You will receive updates.');" class="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+            <input type="email" required placeholder="Enter your email address" class="flex-grow px-4 py-3 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+            <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 font-bold text-sm text-white rounded-xl shadow-md transition whitespace-nowrap">
+              Notify Me
+            </button>
+          </form>
+          <p class="text-[11px] text-slate-400">Zero spam. You can unsubscribe or adjust alert frequencies at any time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         COMPONENT 12: FINAL CALL-TO-ACTION BANNER
+         ========================================================================= -->
+    <section class="py-16 bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white text-center">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">Ready to Save Someone's Tomorrow?</h2>
+        <p class="text-red-100 text-base max-w-2xl mx-auto">
+          Join thousands of compassionate donors across our nationwide network. Registration is completely free and takes under two minutes.
+        </p>
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="src/pages/signup.html" class="w-full sm:w-auto px-8 py-3.5 bg-white text-red-700 hover:bg-red-50 font-bold rounded-xl shadow-lg transition">
+            Create Donor Account
+          </a>
+          <a href="src/pages/about.html" class="w-full sm:w-auto px-8 py-3.5 bg-red-800/60 hover:bg-red-800 border border-red-400/40 text-white font-semibold rounded-xl transition">
+            Learn More About Us
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       GLOBAL COMPONENT: FOOTER
+       Consistent across all 5 pages with helpline, links, social icons
+       ========================================================================= -->
+  <footer class="bg-slate-950 text-slate-400 pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-lg bg-red-600/20 flex items-center justify-center border border-red-500/30">
+              <svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+              </svg>
+            </div>
+            <span class="text-xl font-black text-white tracking-tight">Blood<span class="text-red-500">Connect</span></span>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+            A digital healthcare initiative connecting voluntary blood donors with hospitals and patients in critical emergency need.
+          </p>
+          <div class="p-3.5 rounded-xl bg-red-950/40 border border-red-900/50 text-xs text-red-200">
+            <span class="font-bold text-white block mb-0.5">24/7 Blood Emergency Hotline:</span>
+            <span class="text-base font-black text-red-400">0800-BLOOD (25663)</span>
+            <p class="text-[11px] text-slate-400 mt-1">Email: emergency@bloodconnect.org</p>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation Links -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Navigation</h3>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="index.html" class="hover:text-red-400 transition-colors">Home</a></li>
+            <li><a href="src/pages/about.html" class="hover:text-red-400 transition-colors">About Us</a></li>
+            <li><a href="src/pages/contact.html" class="hover:text-red-400 transition-colors">Contact Support</a></li>
+            <li><a href="src/pages/signup.html" class="hover:text-red-400 transition-colors">Donor Registration</a></li>
+            <li><a href="src/pages/signin.html" class="hover:text-red-400 transition-colors">Donor Portal</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Donor Guidelines -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Resources</h3>
+          <ul class="space-y-2.5 text-sm">
+            <li><a href="src/pages/about.html" class="hover:text-red-400 transition-colors">Eligibility Criteria</a></li>
+            <li><a href="src/pages/about.html" class="hover:text-red-400 transition-colors">Donation Milestones</a></li>
+            <li><a href="src/pages/about.html" class="hover:text-red-400 transition-colors">Leadership & Medical Board</a></li>
+            <li><a href="src/pages/contact.html" class="hover:text-red-400 transition-colors">Hospital Affiliation</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Legal & Notice -->
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-wider text-white mb-4">Project Notice</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            BloodConnect is created for educational and academic evaluation. Content serves demonstration purposes. For genuine medical emergencies, call your local medical services.
+          </p>
+          <div class="mt-4 flex space-x-3">
+            <span class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer transition">FB</span>
+            <span class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer transition">TW</span>
+            <span class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-slate-400 hover:text-white cursor-pointer transition">IN</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copyright Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+        <p>&copy; 2026 BloodConnect System. All rights reserved. Web Engineering Assignment 01.</p>
+        <p class="mt-2 sm:mt-0">Designed with HTML5, CSS3, Tailwind CSS & Flowbite.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Flowbite JS CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+  <!-- Core JavaScript -->
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

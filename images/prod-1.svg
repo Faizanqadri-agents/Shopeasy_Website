@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240" width="300" height="240">
+  <defs>
+    <linearGradient id="grad_headphones" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+  </defs>
+  <rect width="300" height="240" rx="16" fill="#f8fafc" />
+  <rect x="15" y="15" width="270" height="155" rx="12" fill="url(#grad_headphones)" opacity="0.12" />
+  
+  <rect x="25" y="25" width="90" height="22" rx="11" fill="#2563eb" opacity="0.95" />
+  <text x="70" y="39" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">ELECTRONICS</text>
+  
+  <g transform="translate(150, 92)">
+    <circle cx="0" cy="0" r="42" fill="#2563eb" opacity="0.18" />
+    <circle cx="0" cy="0" r="30" fill="#2563eb" />
+    <text x="0" y="10" font-family="Segoe UI Emoji, Apple Color Emoji, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">🎧</text>
+  </g>
+  
+  <text x="150" y="196" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#1e293b" text-anchor="middle">Wireless Noise-Cancelling Headphones</text>
+  <text x="150" y="216" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">ShopEasy Premium Collection</text>
+</svg>

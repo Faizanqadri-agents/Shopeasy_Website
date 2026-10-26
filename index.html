@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ShopEasy - Your premier online destination for cutting-edge electronics, premium stationery, and ergonomic office accessories.">
+  <title>ShopEasy | Home - Electronics &amp; Stationery Store</title>
+  
+  <!-- Favicon & External Master Stylesheet -->
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="header-top">
+    <div class="container">
+      Special Semester Offer: Use code <span>STUDENT20</span> for 20% off or <span>SAVE10</span> for $10% off! Free delivery on orders over $150.
+    </div>
+  </div>
+
+  <!-- Main Site Header -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="navbar" aria-label="Main Navigation">
+        <!-- Brand Logo -->
+        <a href="index.html" class="brand-logo" aria-label="ShopEasy Homepage">
+          <img src="images/logo.svg" alt="ShopEasy Online Store Brand Logo">
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-links">
+          <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="cart.html">Cart &amp; Checkout</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+
+        <!-- Navigation Actions (Theme Switcher, Cart Drawer, Mobile Toggle) -->
+        <div class="nav-actions">
+          <!-- Light/Dark Mode Switcher Button (Bonus Item) -->
+          <button type="button" class="nav-icon-btn" id="theme-toggle" aria-label="Toggle light and dark color theme">
+            <span class="theme-icon" aria-hidden="true">🌙</span>
+            <span class="theme-text">Dark Mode</span>
+          </button>
+
+          <!-- Slide-in Cart Sidebar Trigger Button -->
+          <button type="button" class="nav-icon-btn" id="btn-open-cart-drawer" aria-label="View shopping cart drawer">
+            <span aria-hidden="true">🛒</span>
+            <span>Cart</span>
+            <span class="cart-badge" aria-label="Total items in cart">0</span>
+          </button>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button type="button" class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation menu">
+            ☰
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Mobile Navigation Dropdown Menu -->
+    <div class="mobile-nav-menu" id="mobile-nav-menu">
+      <a href="index.html" class="active">Home</a>
+      <a href="products.html">Products</a>
+      <a href="cart.html">Cart &amp; Checkout</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </header>
+
+  <!-- Main Page Content -->
+  <main>
+    <!-- Hero Banner Section -->
+    <section class="hero-section" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <span class="hero-badge">Curated Tech &amp; Stationery</span>
+            <h1 class="hero-title" id="hero-heading">
+              Elevate Your Desk With <span>Smart Tech</span> &amp; Fine Tools.
+            </h1>
+            <p class="hero-lead">
+              Discover our handpicked collection of noise-cancelling audio, tactile keyboards, archival journals, and ergonomic workstation accessories designed for maximum daily focus.
+            </p>
+            <div class="hero-actions">
+              <a href="products.html" class="btn btn-primary">Browse All Products</a>
+              <a href="products.html?category=electronics" class="btn btn-secondary">Explore Electronics</a>
+            </div>
+          </div>
+          <div class="hero-image-wrapper">
+            <img src="images/hero-illustration.svg" alt="Curated workspace setup with laptop, audio gear, and stationery items">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Store Features & Value Propositions Section (HTML Requirement: Unordered List) -->
+    <section class="perks-section" aria-labelledby="perks-heading">
+      <div class="container">
+        <h2 id="perks-heading" class="visually-hidden" style="display:none;">Store Commitments</h2>
+        <ul class="perks-grid">
+          <li class="perk-card">
+            <div class="perk-icon" aria-hidden="true">🚀</div>
+            <div class="perk-info">
+              <h4>Express Shipping</h4>
+              <p>Free standard delivery on all domestic orders over $150.</p>
+            </div>
+          </li>
+          <li class="perk-card">
+            <div class="perk-icon" aria-hidden="true">🛡️</div>
+            <div class="perk-info">
+              <h4>Quality Guaranteed</h4>
+              <p>Rigorous 100% hardware testing and archival paper standard.</p>
+            </div>
+          </li>
+          <li class="perk-card">
+            <div class="perk-icon" aria-hidden="true">🔄</div>
+            <div class="perk-info">
+              <h4>30-Day Returns</h4>
+              <p>Hassle-free return policy if you are not fully satisfied.</p>
+            </div>
+          </li>
+          <li class="perk-card">
+            <div class="perk-icon" aria-hidden="true">🎧</div>
+            <div class="perk-info">
+              <h4>Expert Support</h4>
+              <p>Dedicated customer support team ready to assist 24/7.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Featured Products Showcase Section (Populated dynamically via JavaScript) -->
+    <section class="catalog-section" aria-labelledby="featured-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-subtitle">Staff Picks</p>
+          <h2 id="featured-heading">Featured Essentials</h2>
+          <p>Our highest-rated workspace gear, trusted by creators, engineers, and students alike.</p>
+        </div>
+
+        <!-- Featured Grid (Dynamic JavaScript rendering) -->
+        <div class="product-grid" id="featured-grid">
+          <!-- Dynamically populated by store.js from products.json -->
+        </div>
+
+        <div style="text-align: center; margin-top: 2.5rem;">
+          <a href="products.html" class="btn btn-primary">View Full Product Catalog &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Promotional Discount Callout -->
+    <section style="background-color: var(--color-primary-light); padding: 3rem 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border);" aria-labelledby="promo-heading">
+      <div class="container" style="text-align: center; max-width: 700px;">
+        <h2 id="promo-heading" style="color: var(--color-primary); font-size: 1.8rem; margin-bottom: 0.5rem;">Semester Savings Are Here!</h2>
+        <p style="font-size: 1.05rem; margin-bottom: 1.5rem;">
+          Take an extra 10% off your entire order with voucher <strong>SAVE10</strong>, or apply <strong>STUDENT20</strong> during checkout. Automatic volume discounts apply for purchases over $500!
+        </p>
+        <a href="products.html" class="btn btn-accent">Shop The Sale</a>
+      </div>
+    </section>
+
+    <!-- Frequently Asked Questions Section (jQuery slideToggle accordion requirement) -->
+    <section class="faq-section" aria-labelledby="faq-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-subtitle">Got Questions?</p>
+          <h2 id="faq-heading">Frequently Asked Questions</h2>
+          <p>Find answers to common inquiries regarding orders, deliveries, and store policies.</p>
+        </div>
+
+        <div class="faq-list">
+          <article class="faq-item">
+            <button type="button" class="faq-question">
+              <span>What delivery options are available and how long does it take?</span>
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>We provide standard domestic ground shipping (2-4 business days) and expedited overnight delivery. Standard shipping is completely free for orders exceeding $150, or flat $15 for smaller orders.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <button type="button" class="faq-question">
+              <span>How do discount vouchers and student coupons work?</span>
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>You can enter coupon codes like <strong>SAVE10</strong>, <strong>STUDENT20</strong>, or <strong>FREESHIP</strong> directly on the Cart &amp; Checkout page. Our rest-parameter pricing engine recalculates taxes, discounts, and grand totals automatically.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <button type="button" class="faq-question">
+              <span>What is the return policy for electronics and stationery?</span>
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>All items carry a 30-day risk-free return guarantee. Hardware products must be returned in their original packaging with all included accessories. Stationery items must be unused and sealed.</p>
+            </div>
+          </article>
+
+          <article class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Are all products in stock and authentic?</span>
+              <span class="faq-icon" aria-hidden="true">▼</span>
+            </button>
+            <div class="faq-answer">
+              <p>Every product shown in our catalog is sourced directly from certified original manufacturers. If an item sells out, it will be clearly marked with a "Sold Out" badge and ordering will be temporarily disabled until new inventory arrives.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Slide-in Mini Cart Drawer (Requirement: jQuery Slide Animation) -->
+  <div class="cart-sidebar-overlay" id="cart-sidebar-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar" aria-label="Shopping Cart Sidebar">
+    <div class="sidebar-header">
+      <h3>Your Shopping Cart</h3>
+      <button type="button" class="modal-close-btn" id="btn-close-cart-sidebar" aria-label="Close cart sidebar">✕</button>
+    </div>
+    <div class="sidebar-items" id="sidebar-cart-items">
+      <!-- Populated dynamically via store.js -->
+    </div>
+    <div class="sidebar-footer">
+      <div class="sidebar-subtotal-row">
+        <span>Subtotal:</span>
+        <span id="sidebar-cart-subtotal">$0.00</span>
+      </div>
+      <a href="cart.html" class="btn btn-primary btn-block">Proceed to Checkout</a>
+    </div>
+  </aside>
+
+  <!-- Product Details Modal Dialog (Requirement: Array.find() details view) -->
+  <div class="modal-overlay" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-product-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="badge badge-category" id="modal-product-category">CATEGORY</span>
+        <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close details dialog">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-img-wrapper">
+          <img src="images/prod-1.svg" alt="Product preview" id="modal-product-img">
+        </div>
+        <div class="modal-details">
+          <h3 id="modal-product-title">Product Name</h3>
+          <div class="modal-price" id="modal-product-price">$0.00</div>
+          <div class="modal-meta-row">
+            <span id="modal-product-rating">★★★★★</span>
+            <span id="modal-product-stock"><span class="badge badge-in-stock">In Stock</span></span>
+          </div>
+          <p id="modal-product-desc">Full product description text goes here.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="ShopEasyStore.closeProductDetails()">Close</button>
+        <button type="button" class="btn btn-primary" id="modal-btn-add-cart" onclick="ShopEasyStore.addToCart(this.getAttribute('data-id'), 1); ShopEasyStore.closeProductDetails();">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast Container (Requirement: jQuery method chaining notification) -->
+  <div id="toast" role="status" aria-live="polite">Notification alert message</div>
+
+  <!-- Back-to-Top Floating Button (Requirement: jQuery animate scrollTop) -->
+  <button type="button" id="back-to-top" aria-label="Back to top of page">↑</button>
+
+  <!-- Semantic Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 1rem;">
+            <img src="images/logo.svg" alt="ShopEasy logo">
+          </div>
+          <p>ShopEasy is your reliable online emporium for premium electronic hardware, designer stationery sets, and modern desktop ergonomic solutions.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Product Catalog</a></li>
+            <li><a href="cart.html">Cart &amp; Checkout</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="products.html?category=electronics">Electronics</a></li>
+            <li><a href="products.html?category=stationery">Stationery</a></li>
+            <li><a href="products.html?category=accessories">Accessories</a></li>
+            <li><a href="products.html">Featured Products</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Store Hours</h4>
+          <p>Monday – Friday: 9:00 AM – 7:00 PM<br>Saturday: 10:00 AM – 5:00 PM<br>Sunday: Closed</p>
+          <p style="margin-top: 0.5rem;">Email: <a href="mailto:support@shopeasy.store">support@shopeasy.store</a></p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 ShopEasy Web Store. All rights reserved. Web Engineering Assignment Project.</p>
+        <p>Built with HTML5, CSS3, JavaScript ES6 &amp; jQuery. No Backend Required.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts Loading Order: jQuery CDN -> data.js -> store.js -> ui.js -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>

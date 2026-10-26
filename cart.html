@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ShopEasy Shopping Cart and Secure Checkout - Review ordered items, apply promo codes, and complete your purchase.">
+  <title>ShopEasy | Cart &amp; Checkout</title>
+  
+  <!-- Favicon & External Master Stylesheet -->
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="header-top">
+    <div class="container">
+      Free delivery on orders over $150. Use coupon <span>SAVE10</span> at checkout for 10% off!
+    </div>
+  </div>
+
+  <!-- Main Site Header -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="navbar" aria-label="Main Navigation">
+        <!-- Brand Logo -->
+        <a href="index.html" class="brand-logo" aria-label="ShopEasy Homepage">
+          <img src="images/logo.svg" alt="ShopEasy Online Store Brand Logo">
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="cart.html" class="active" aria-current="page">Cart &amp; Checkout</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+
+        <!-- Navigation Actions -->
+        <div class="nav-actions">
+          <button type="button" class="nav-icon-btn" id="theme-toggle" aria-label="Toggle light and dark color theme">
+            <span class="theme-icon" aria-hidden="true">🌙</span>
+            <span class="theme-text">Dark Mode</span>
+          </button>
+
+          <button type="button" class="nav-icon-btn" id="btn-open-cart-drawer" aria-label="View shopping cart drawer">
+            <span aria-hidden="true">🛒</span>
+            <span>Cart</span>
+            <span class="cart-badge" aria-label="Total items in cart">0</span>
+          </button>
+
+          <button type="button" class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation menu">
+            ☰
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Mobile Navigation Dropdown Menu -->
+    <div class="mobile-nav-menu" id="mobile-nav-menu">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="cart.html" class="active">Cart &amp; Checkout</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+    <div class="container" style="padding-top: 2rem;">
+      <section class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+        <p class="section-subtitle">Order Management</p>
+        <h1>Shopping Cart &amp; Checkout</h1>
+        <p>Review items in your order, adjust quantities, apply promotional discounts, and complete your secure order.</p>
+      </section>
+
+      <!-- Empty Cart State Placeholder -->
+      <section id="cart-empty-state" class="empty-state" style="display: none; margin: 3rem 0;">
+        <div class="empty-state-icon">🛒</div>
+        <h2>Your Shopping Cart is Empty</h2>
+        <p>You have not added any products yet. Discover our premium electronics and stationery tools today!</p>
+        <div style="margin-top: 1.5rem;">
+          <a href="products.html" class="btn btn-primary">Start Shopping</a>
+        </div>
+      </section>
+
+      <!-- Cart & Checkout Layout -->
+      <div class="cart-layout" id="checkout-section">
+        <!-- Left Column: Cart Table & Checkout Form -->
+        <div class="cart-main-col">
+          <!-- Cart Table (HTML Requirement: At least one table with thead/tbody/tfoot) -->
+          <section aria-labelledby="cart-table-heading" style="margin-bottom: 2.5rem;">
+            <h2 id="cart-table-heading" style="font-size: 1.4rem; margin-bottom: 1rem;">Items In Your Cart</h2>
+            
+            <div class="cart-table-wrapper" id="cart-table-wrapper">
+              <table class="cart-table" aria-label="Items in your shopping cart">
+                <thead>
+                  <tr>
+                    <th scope="col">Product Details</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Line Total</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="cart-table-body">
+                  <!-- Dynamic rows rendered by store.js -->
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3" style="text-align: right;">Subtotal:</td>
+                    <td colspan="2"><span id="cart-tfoot-subtotal">$0.00</span></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </section>
+
+          <!-- Checkout Form Section (HTML Requirement: Form with >= 6 fields, varied types & validation) -->
+          <section aria-labelledby="checkout-form-heading">
+            <div class="form-card">
+              <h2 id="checkout-form-heading" style="font-size: 1.4rem; margin-bottom: 0.5rem;">Shipping &amp; Billing Information</h2>
+              <p style="font-size: 0.9rem; margin-bottom: 1.5rem; color: var(--color-text-muted);">
+                Please complete the form below to finalize your order. All fields marked with an asterisk (<span class="required-asterisk">*</span>) are mandatory.
+              </p>
+
+              <form id="checkout-form" novalidate aria-label="Order Checkout Form">
+                <div class="form-grid">
+                  <!-- 1. Full Name (Input type: text) -->
+                  <div class="form-group col-span-2">
+                    <label for="checkout-name" class="form-label">
+                      Full Legal Name <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="checkout-name" name="name" class="form-control" placeholder="e.g., Alexandra Smith" required minlength="3" maxlength="60" autocomplete="name">
+                    <span class="error-msg" id="error-checkout-name"></span>
+                  </div>
+
+                  <!-- 2. Email Address (Input type: email) -->
+                  <div class="form-group">
+                    <label for="checkout-email" class="form-label">
+                      Email Address <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="email" id="checkout-email" name="email" class="form-control" placeholder="alex@university.edu" required autocomplete="email">
+                    <span class="error-msg" id="error-checkout-email"></span>
+                  </div>
+
+                  <!-- 3. Telephone Number (Input type: tel) -->
+                  <div class="form-group">
+                    <label for="checkout-phone" class="form-label">
+                      Contact Phone <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="tel" id="checkout-phone" name="phone" class="form-control" placeholder="+1 (555) 019-2834" required pattern="(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}" autocomplete="tel">
+                    <span class="error-msg" id="error-checkout-phone"></span>
+                  </div>
+
+                  <!-- 4. Street Address (Input type: text) -->
+                  <div class="form-group col-span-2">
+                    <label for="checkout-address" class="form-label">
+                      Delivery Address <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="checkout-address" name="address" class="form-control" placeholder="142 Academic Avenue, Apt 4B" required minlength="5" maxlength="120" autocomplete="street-address">
+                    <span class="error-msg" id="error-checkout-address"></span>
+                  </div>
+
+                  <!-- 5. City Dropdown (Input type: select) -->
+                  <div class="form-group">
+                    <label for="checkout-city" class="form-label">
+                      City / Region <span class="required-asterisk">*</span>
+                    </label>
+                    <select id="checkout-city" name="city" class="form-control" required autocomplete="address-level2">
+                      <option value="">-- Choose Your City --</option>
+                      <option value="New York">New York, NY</option>
+                      <option value="San Francisco">San Francisco, CA</option>
+                      <option value="Chicago">Chicago, IL</option>
+                      <option value="Boston">Boston, MA</option>
+                      <option value="Seattle">Seattle, WA</option>
+                      <option value="Austin">Austin, TX</option>
+                    </select>
+                    <span class="error-msg" id="error-checkout-city"></span>
+                  </div>
+
+                  <!-- 6. Postal Code (Input type: text with pattern) -->
+                  <div class="form-group">
+                    <label for="checkout-zip" class="form-label">
+                      Postal Zip Code <span class="required-asterisk">*</span>
+                    </label>
+                    <input type="text" id="checkout-zip" name="zip" class="form-control" placeholder="10001" required pattern="[0-9]{5}" maxlength="5" autocomplete="postal-code">
+                    <span class="error-msg" id="error-checkout-zip"></span>
+                  </div>
+
+                  <!-- 7. Delivery Instructions (Input type: textarea) -->
+                  <div class="form-group col-span-2">
+                    <label for="checkout-notes" class="form-label">
+                      Special Delivery Instructions (Optional)
+                    </label>
+                    <textarea id="checkout-notes" name="notes" class="form-control" placeholder="Leave package at the front desk, ring apartment doorbell..."></textarea>
+                  </div>
+
+                  <!-- 8. Payment Method (Input type: radio inside fieldset & legend) -->
+                  <div class="form-group col-span-2">
+                    <fieldset class="form-group-fieldset">
+                      <legend>Payment Method <span class="required-asterisk">*</span></legend>
+                      <div class="radio-group">
+                        <label class="radio-label">
+                          <input type="radio" name="payment_method" value="credit_card" checked>
+                          <span>💳 Credit or Debit Card (Visa, MasterCard, Amex)</span>
+                        </label>
+                        <label class="radio-label">
+                          <input type="radio" name="payment_method" value="paypal">
+                          <span>🅿️ PayPal Digital Express</span>
+                        </label>
+                        <label class="radio-label">
+                          <input type="radio" name="payment_method" value="cod">
+                          <span>💵 Cash on Delivery (Available in select metro areas)</span>
+                        </label>
+                      </div>
+                      <span class="error-msg" id="error-checkout-payment"></span>
+                    </fieldset>
+                  </div>
+
+                  <!-- 9. Terms and Conditions Checkbox (Input type: checkbox) -->
+                  <div class="form-group col-span-2">
+                    <label class="checkbox-label">
+                      <input type="checkbox" id="checkout-terms" name="terms" required>
+                      <span>I agree to the <a href="contact.html" target="_blank">Store Terms of Service</a> and 30-day refund policy. <span class="required-asterisk">*</span></span>
+                    </label>
+                    <span class="error-msg" id="error-checkout-terms"></span>
+                  </div>
+                </div>
+
+                <!-- Form Submit Action -->
+                <div style="margin-top: 1.5rem;">
+                  <button type="submit" id="btn-submit-order" class="btn btn-primary btn-block" style="padding: 0.9rem; font-size: 1.05rem;">
+                    Place Secure Order &rarr;
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right Column: Order Summary & Coupon Card -->
+        <aside class="cart-summary-col" aria-label="Order Summary">
+          <div class="order-summary-box" id="order-summary-box">
+            <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem;">Order Summary</h3>
+            
+            <div class="summary-row">
+              <span>Items Subtotal:</span>
+              <strong id="summary-subtotal">$0.00</strong>
+            </div>
+
+            <div class="summary-row">
+              <span>Discounts Applied:</span>
+              <strong id="summary-discount" style="color: var(--color-success);">-$0.00</strong>
+            </div>
+
+            <div id="applied-coupon-container"></div>
+
+            <div class="summary-row">
+              <span>Sales Tax (5%):</span>
+              <span id="summary-tax">$0.00</span>
+            </div>
+
+            <div class="summary-row">
+              <span>Standard Shipping:</span>
+              <span id="summary-shipping">$0.00</span>
+            </div>
+
+            <div class="summary-row total-row">
+              <span>Grand Total:</span>
+              <span id="summary-grand-total" style="color: var(--color-primary);">$0.00</span>
+            </div>
+
+            <!-- Coupon Code Form (Bonus requirement: coupon code engine) -->
+            <div style="margin-top: 1.5rem; border-top: 1px solid var(--color-border); padding-top: 1rem;">
+              <label for="coupon-code-input" style="font-size: 0.85rem; font-weight: 600; color: var(--color-text-main); display: block; margin-bottom: 0.25rem;">
+                Have a Promo Voucher?
+              </label>
+              <form id="coupon-form" class="coupon-group">
+                <input type="text" id="coupon-code-input" class="coupon-input" placeholder="e.g. SAVE10 or STUDENT20" aria-label="Promotional coupon code">
+                <button type="submit" class="btn btn-secondary btn-sm">Apply</button>
+              </form>
+              <p style="font-size: 0.75rem; color: var(--color-text-light);">Try codes: <strong>SAVE10</strong> (10% off), <strong>STUDENT20</strong> (20% off), or <strong>FREESHIP</strong>.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Order Confirmation / Success Container (Hidden until valid submit) -->
+      <section id="order-success-container" style="display: none;" aria-live="assertive">
+        <!-- Rendered dynamically by store.js -->
+      </section>
+    </div>
+  </main>
+
+  <!-- Slide-in Mini Cart Drawer -->
+  <div class="cart-sidebar-overlay" id="cart-sidebar-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar" aria-label="Shopping Cart Sidebar">
+    <div class="sidebar-header">
+      <h3>Your Shopping Cart</h3>
+      <button type="button" class="modal-close-btn" id="btn-close-cart-sidebar" aria-label="Close cart sidebar">✕</button>
+    </div>
+    <div class="sidebar-items" id="sidebar-cart-items">
+      <!-- Populated dynamically via store.js -->
+    </div>
+    <div class="sidebar-footer">
+      <div class="sidebar-subtotal-row">
+        <span>Subtotal:</span>
+        <span id="sidebar-cart-subtotal">$0.00</span>
+      </div>
+      <a href="cart.html" class="btn btn-primary btn-block">Proceed to Checkout</a>
+    </div>
+  </aside>
+
+  <!-- Notification Toast Container -->
+  <div id="toast" role="status" aria-live="polite">Notification alert message</div>
+
+  <!-- Back to Top Button -->
+  <button type="button" id="back-to-top" aria-label="Back to top of page">↑</button>
+
+  <!-- Semantic Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 1rem;">
+            <img src="images/logo.svg" alt="ShopEasy logo">
+          </div>
+          <p>Secure 256-bit SSL encrypted checkout. Fast regional delivery with instant shipment tracking.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Product Catalog</a></li>
+            <li><a href="cart.html">Cart &amp; Checkout</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Payment Methods</h4>
+          <ul>
+            <li>Visa &amp; MasterCard</li>
+            <li>PayPal Express</li>
+            <li>Apple Pay &amp; Google Pay</li>
+            <li>Cash on Delivery</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Store Guarantee</h4>
+          <p>30-Day Money Back Guarantee.<br>Need help? Call <a href="tel:+18005550199">+1 (800) 555-0199</a><br>Email: <a href="mailto:support@shopeasy.store">support@shopeasy.store</a></p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 ShopEasy Web Store. All rights reserved. Web Engineering Assignment Project.</p>
+        <p>Built with HTML5, CSS3, JavaScript ES6 &amp; jQuery. No Backend Required.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts Loading Order: jQuery CDN -> data.js -> store.js -> ui.js -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
